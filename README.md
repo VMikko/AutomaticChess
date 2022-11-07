@@ -1,3 +1,7 @@
+https://www.w3schools.com/c/index.php
+kattokaa tuolta hommia
+
+
 # Velhoshakki
 TODO:
   Opettele syntaksia, headereitten käyttöä yms, miten pitäisi teh
