@@ -2,6 +2,7 @@ https://www.w3schools.com/c/index.php
 https://www.w3schools.com/cpp/
 kattokaa tuolta hommia
 
+Tee 'simulaatiokoodi' esim VSC:ssä
 
 # Velhoshakki
 TODO:
