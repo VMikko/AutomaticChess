@@ -7,7 +7,7 @@
 
 using namespace std;
 
-// Pieces and colors can only be these specific things
+// Pieces and colors can only be these specific values
 enum Piece {Empty, Pawn, Bishop, Rook, Knight, Queen, King};
 enum Color {None, White, Black};
 

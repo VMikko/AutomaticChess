@@ -4,7 +4,6 @@
 #include <iostream>
 using namespace std;
 
-
 class Board {
 	// constructor, at the beginning the board is full of empty squares
 	Square board[8][8]{
@@ -21,7 +20,7 @@ public:
 	// the methods that the class has, they're defined below
 	void printBoard();
 	void setUp();
-	void tryMove();
+	bool tryMove(Color color);
 	bool move(int x, int y);
 
 };
@@ -91,7 +90,7 @@ bool Board::move(int x, int y) {
 		cout << "Incorrect coordinates - type better\n";
 		return false;
 	}
-		
+	// if the player chooses to move to the same square where the piece is, the piece just gets removed, fix
 	Square &p1 = board[y1][x1];
 	Square &p2 = board[y2][x2];
 	p2.setPieceColor(p1.getPiece(), p1.getColor());	
@@ -102,44 +101,41 @@ bool Board::move(int x, int y) {
 }
 
 
-
-void Board::tryMove() {
+//Tries to select a piece for the next move
+bool Board::tryMove(Color color) {
 	int x;
 	int y;
 	int apu;
-
 	string n;
-	// CHANGE THIS, MAKE IT BE 2 DIFFERENT INPUTS FOR X & Y
-	cout << "Select a piece (give an xy-coordinate)\n";
-	cin >> n;
-	// Spaghetticode to the maximum
-	try {
-		apu = stoi(n);
-		x = atoi(&n.at(1));
-		y = atoi(&n.at(0))/10;
+
+	cout << "Select an x-coordinate(0-7)\n";
+	cin >> x;
+	if (cin.fail() || x < 0 || x >7) {
+		cout << "Invalid coordinate (or not int)\n";
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		return false;
 	}
-	catch (invalid_argument){
-		cout << "Invalid argument, Type only numbers.\n";
-		return;
+	cout << "Select an y-coordinate(0-7)\n";
+	cin >> y;
+	if (cin.fail() || y < 0 || y > 7) {
+		cout << "Invalid coordinate (or not int)\n";
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		return false;
 	}
 
-	if (apu >= 0 && n.length() == 2 && x >= 0 && x <= 7 && y >= 0 && y <= 7) {
-		cout << "Valid coordinate\n";
-		if (board[y][x].getPiece() != Empty) {
-			cout << "Valid Piece!\n";
-			//if everything works then this happens, keeps repeating it until the user gives a correct xy
-			while (!move(x, y)) {
-			}
-		}
-		else {
-			cout << "Empty Square\n";
+	if (board[y][x].getPiece() != Empty && board[y][x].getColor() == color) {
+		cout << "Valid piece!\n";
+		// make this return bool value of the move
+		while (!move(x, y)) {
 		}
 	}
 	else {
-		cout << "Invalid XY-coordinate\n";
-		return;
+		cout << "Either an empty square, or not your piece.\n";
+		return false;
 	}
-	cout << endl;
+	return true;
 }
 
 /*

@@ -23,14 +23,26 @@ int main()
 {
     Board lauta;
     lauta.setUp();
+
     while (true) {
         string input;
         lauta.printBoard();
-        lauta.tryMove();
+        cout << "White moves\n";
+        while (!lauta.tryMove(White)) {
+            cout << "Still white\n";
+        }
+        cout << "Black moves\n";
         lauta.printBoard();
+        while (!lauta.tryMove(Black)) {
+            cout << "Still black\n";
+        }
+        lauta.printBoard();
+
         cout << "Continue? n for no, anything else for yes\n";
         cin >> input;
         if (input == "n") {
+            cout << "__________________________\n";
+            cout << "Game ended from user input\n";
             break;
         }
     }
